@@ -1,24 +1,17 @@
-```jsx
 import React, { useEffect, useRef } from "react";
 import { createChart } from "lightweight-charts";
+import { TD_WEBSOCKET_URL } from "../services/twelvedata";
 
 export default function RealTimeChart({ symbol }) {
-  const containerRef = useRef();
+  const ref = useRef();
   const chartRef = useRef();
   const seriesRef = useRef();
 
   useEffect(() => {
-    chartRef.current = createChart(containerRef.current, {
-      width: containerRef.current.clientWidth,
-      height: 300,
-      layout: { backgroundColor: '#131722', textColor: '#d1d4dc' },
-      grid: { vertLines: { color: '#2B2B43' }, horzLines: { color: '#363C4E' } }
-    });
-    seriesRef.current = chartRef.current.addCandlestickSeries({ upColor: '#4bffb5', downColor: '#ff4976' });
+    chartRef.current = createChart(ref.current, { width: ref.current.clientWidth, height: 300 });
+    seriesRef.current = chartRef.current.addCandlestickSeries();
 
-    const socket = new WebSocket(
-      `wss://ws.twelvedata.com/v1/quotes/price?apikey=${process.env.REACT_APP_TWELVE_DATA_API_KEY}&symbol=${symbol}`
-    );
+    const socket = new WebSocket(TD_WEBSOCKET_URL(symbol));
     socket.onmessage = e => {
       const msg = JSON.parse(e.data);
       if (msg.price) {
@@ -27,11 +20,10 @@ export default function RealTimeChart({ symbol }) {
       }
     };
 
-    const onResize = () => chartRef.current.applyOptions({ width: containerRef.current.clientWidth });
+    const onResize = () => chartRef.current.applyOptions({ width: ref.current.clientWidth });
     window.addEventListener("resize", onResize);
     return () => { window.removeEventListener("resize", onResize); socket.close(); };
   }, [symbol]);
 
-  return <div ref={containerRef} />;
+  return <div ref={ref} />;
 }
-```
