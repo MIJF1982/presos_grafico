@@ -15,24 +15,20 @@ export default function SignupPage({ auth }) {
     try {
       const userCred = await createUserWithEmailAndPassword(auth, email, password);
       await setDoc(doc(db, "users", userCred.user.uid), { watchlist: [] });
-      navigate("/dashboard");
+      navigate("/");
     } catch (err) {
       setError(err.message);
     }
   };
 
   return (
-    <div className="auth-container">
-      <form onSubmit={handleSubmit} className="auth-form">
-        <h2>Cadastre-se</h2>
-        <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required />
-        <input type="password" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} minLength={6} required />
-        {error && <p className="error">{error}</p>}
-        <button type="submit">Cadastrar</button>
-        <p>
-          Já tem conta? <Link to="/">Login</Link>
-        </p>
-      </form>
-    </div>
-  );
+    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem", maxWidth: 300 }}>
+      <label>Email:</label>
+      <input type="email" value={email} onChange={e => setEmail(e.target.value)} required />
+      <label>Senha:</label>
+      <input type="password" value={password} onChange={e => setPassword(e.target.value)} minLength={6} required />
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      <button type="submit">Cadastrar</button>
+      <p>Já tem conta? <Link to="/">Login</Link></p>
+    </form>
 }
