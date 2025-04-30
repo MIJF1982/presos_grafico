@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { Link } from "react-router-dom";
 
 export default function LoginPage({ auth }) {
   const [email, setEmail] = useState("");
@@ -17,17 +16,13 @@ export default function LoginPage({ auth }) {
   };
 
   return (
-    <div className="auth-container">
-      <form onSubmit={handleSubmit} className="auth-form">
-        <h2>Login</h2>
-        <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required />
-        <input type="password" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} required />
-        {error && <p className="error">{error}</p>}
-        <button type="submit">Entrar</button>
-        <p>
-          Não tem conta? <Link to="/signup">Cadastre-se</Link>
-        </p>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem", maxWidth: 300 }}>
+      <label>Email:</label>
+      <input type="email" value={email} onChange={e => setEmail(e.target.value)} required />
+      <label>Senha:</label>
+      <input type="password" value={password} onChange={e => setPassword(e.target.value)} required />
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      <button type="submit">Entrar</button>
+    </form>
   );
 }
