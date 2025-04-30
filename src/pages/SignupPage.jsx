@@ -1,37 +1,22 @@
-// src/pages/SignupPage.jsx
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
+import { db } from "../services/firebase";
 
-export default function SignupPage({ auth, firebaseApp }) {
+export default function SignupPage({ auth }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const db = getFirestore(firebaseApp);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    setError("");
     try {
-      // Cria usuário no Firebase Auth
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const { user } = userCredential;
-
-      // Inicializa watchlist vazia no Firestore
-      await setDoc(doc(db, "users", user.uid), {
-        watchlist: []
-      });
-
-      // Redireciona para dashboard
+      const userCred = await createUserWithEmailAndPassword(auth, email, password);
+      await setDoc(doc(db, "users", userCred.user.uid), { watchlist: [] });
       navigate("/dashboard");
     } catch (err) {
-      console.error(err);
       setError(err.message);
     }
   };
@@ -39,26 +24,13 @@ export default function SignupPage({ auth, firebaseApp }) {
   return (
     <div className="auth-container">
       <form onSubmit={handleSubmit} className="auth-form">
-        <h2>Crie sua conta</h2>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Senha (mínimo 6 caracteres)"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          minLength={6}
-          required
-        />
+        <h2>Cadastre-se</h2>
+        <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required />
+        <input type="password" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} minLength={6} required />
         {error && <p className="error">{error}</p>}
         <button type="submit">Cadastrar</button>
         <p>
-          Já tem conta? <Link to="/">Faça login</Link>
+          Já tem conta? <Link to="/">Login</Link>
         </p>
       </form>
     </div>
