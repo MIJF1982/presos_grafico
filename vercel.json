@@ -11,11 +11,8 @@
   ],
   "routes": [
     {
-      "src": "^/(.*)$",
+      "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "env": {
-    "REACT_APP_API_URL": "https://your-api-url.com"
-  }
+  ]
 }
