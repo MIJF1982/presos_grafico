@@ -8,7 +8,7 @@ A seguir, cada passo explica como criar **um arquivo** de cada vez no GitHub Web
 1. No GitHub, na raiz do repositório, clique em **Add file** ▶ **Create new file**.
 2. No campo "Name your file", digite `vercel.json`.
 3. No editor, cole apenas **isto**:
-```json
+// ========== vercel.json ==========
 {
   "version": 2,
   "builds": [
@@ -18,7 +18,7 @@ A seguir, cada passo explica como criar **um arquivo** de cada vez no GitHub Web
     { "src": "^/(.*)$", "dest": "/index.html" }
   ]
 }
-```
+
 4. Role para baixo, em **Commit new file**, deixe a mensagem padrão e clique em **Commit new file**.
 
 ---
@@ -27,7 +27,6 @@ A seguir, cada passo explica como criar **um arquivo** de cada vez no GitHub Web
 1. Clique em **Add file** ▶ **Create new file**.
 2. Nomeie o arquivo como `package.json`.
 3. Cole **isto**:
-```json
 {
   "name": "simulador-trading",
   "version": "1.0.0",
@@ -47,7 +46,6 @@ A seguir, cada passo explica como criar **um arquivo** de cada vez no GitHub Web
     "eject": "react-scripts eject"
   }
 }
-```
 4. **Commit new file**.
 
 ---
