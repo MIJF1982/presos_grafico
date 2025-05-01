@@ -1,20 +1,19 @@
 {
-  "name": "presos_grafico",
+  "name": "presos-grafico",
   "version": "1.0.0",
-  "private": true,
-  "engines": { "node": "18.x", "npm": "8.x" },
-  "dependencies": {
-    "firebase": "^9.21.0",
-    "lightweight-charts": "^4.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.11.1",
-    "react-scripts": "5.0.1"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }
