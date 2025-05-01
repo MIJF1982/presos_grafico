@@ -1,25 +1,20 @@
-import React, { useState } from 'react';
-import LoginForm from './LoginForm';
-import Dashboard from './Dashboard';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
 
-export default function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const handleLogin = (email, password) => {
-    // Aqui pode-se adicionar autenticação real
-    if (email && password) {
-      setIsAuthenticated(true);
-    }
-  };
+function App() {
+  const isAuthenticated = !!localStorage.getItem('auth');
 
   return (
-    <div>
-      {!isAuthenticated ? (
-        <LoginForm onLogin={handleLogin} />
-      ) : (
-        <Dashboard />
-      )}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />} />
+        <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/" />} />
+      </Routes>
+    </Router>
   );
 }
+
+export default App;
 
