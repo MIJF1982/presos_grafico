@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import HomePage from "./pages/HomePage";
-import SignupPage from "./pages/SignupPage";
-import { firebaseConfig } from "./services/firebase";
+import React, { useState } from 'react';
+import LoginForm from './LoginForm';
+import Dashboard from './Dashboard';
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-function App() {
-  const [user, setUser] = useState(null);
-  useEffect(() => onAuthStateChanged(auth, u => setUser(u)), []);
+  const handleLogin = (email, password) => {
+    // Aqui pode-se adicionar autenticação real
+    if (email && password) {
+      setIsAuthenticated(true);
+    }
+  };
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage user={user} auth={auth} />} />
-        <Route path="/signup" element={<SignupPage auth={auth} />} />
-      </Routes>
-    </Router>
+    <div>
+      {!isAuthenticated ? (
+        <LoginForm onLogin={handleLogin} />
+      ) : (
+        <Dashboard />
+      )}
+    </div>
   );
 }
-export default App;
+
