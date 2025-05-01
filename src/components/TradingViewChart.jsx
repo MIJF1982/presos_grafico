@@ -8,7 +8,7 @@ export default function TradingViewChart() {
     script.onload = () => {
       new window.TradingView.widget({
         autosize: true,
-        symbol: 'EURONEXT:GALP', // símbolo inicial
+        symbol: 'EURONEXT:GALP',
         interval: 'D',
         timezone: 'Etc/UTC',
         theme: 'light',
