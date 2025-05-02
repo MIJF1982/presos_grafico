@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.0.0"   // Aqui você deve garantir que esta dependência esteja presente
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.0",
