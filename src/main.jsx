@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
+import App from './App'; // Importa o componente principal
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+// Renderiza o componente App dentro do div com id 'app' no HTML
+ReactDOM.createRoot(document.getElementById('app')).render(<App />);
